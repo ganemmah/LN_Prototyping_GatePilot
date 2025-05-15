@@ -2,3 +2,40 @@ body {
     background-color: black;
     color: white;
 }
+
+/* Card Hover‐Effekt */
+.hover-scale {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hover-scale:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75%    { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s linear infinite;
+}
+
+.marquee {
+  overflow: hidden;
+  position: relative;
+  height: 250px; /* Wunschhöhe */
+}
+.marquee ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  animation: scrollUp 50s linear infinite; /* Dauer der Animation */
+}
+@keyframes scrollUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); /* etwa die Hälfte der Listenlänge */ }
+}

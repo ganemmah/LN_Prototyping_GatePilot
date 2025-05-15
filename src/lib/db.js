@@ -133,3 +133,28 @@ export async function deleteGate(id) {
   const result = await collection.deleteOne({ _id: new ObjectId(id) });
   return result.deletedCount > 0;
 }
+
+//////////////////////////////////////////
+// Airlines
+//////////////////////////////////////////
+
+/**
+ * Liest alle Airlines aus.
+ */
+export async function getAirlines() {
+  const collection = db.collection("airlines");
+  const airlines = await collection.find({}).toArray();
+  return airlines.map(a => ({ ...a, _id: a._id.toString() }));
+}
+
+/**
+ * Liest eine einzelne Airline per Code (Params.id).
+ * @param {string} code – z. B. "EK"
+ */
+export async function getAirline(code) {
+  const collection = db.collection("airlines");
+  // wir speichern airline_code eindeutig, darum nach diesem filtern
+  const airline = await collection.findOne({ airline_code: code });
+  return airline && { ...airline, _id: airline._id.toString() };
+}
+

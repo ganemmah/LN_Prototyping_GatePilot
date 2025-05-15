@@ -27,19 +27,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            aria-current="page"
-            href="/flights"
-            >Flights</a
-          >
+          <a class="nav-link" aria-current="page" href="/flights">Flights</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            href="/gates"
-            >Gates</a
-          >
+          <a class="nav-link" href="/gates">Gates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/airlines">Airlines</a>
         </li>
       </ul>
     </div>

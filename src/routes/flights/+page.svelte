@@ -1,45 +1,71 @@
-<!-- src/routes/flights/+page.svelte -->
 <script>
-  // pull in the props object
-  let { data } = $props();
-
-  // then destructure your flights array
+  // Daten aus load()
+  export let data;
   const { flights } = data;
+
+  // Status-Badge-Klassen
+  function statusBadgeCls(status) {
+    switch (status) {
+      case 'Scheduled': return 'bg-info text-dark';
+      case 'Boarding':  return 'bg-primary';
+      case 'En Route':  return 'bg-warning text-dark';
+      case 'Landed':    return 'bg-success';
+      case 'Delayed':   return 'bg-danger';
+      case 'Cancelled': return 'bg-secondary';
+      default:          return 'bg-light text-dark';
+    }
+  }
 </script>
 
-<p><i>Daten geladen aus airportDB → flights</i></p>
+<div class="container my-5">
+  <!-- Header und Add-Button -->
+  <div class="d-flex align-items-center mb-4">
+    <h1 class="me-auto text-white">Flights</h1>
+    <a href="/flights/new" class="btn btn-lg btn-primary">Add New Flight</a>
+  </div>
 
-<div class="mb-3">
-  <a href="/flights/new" class="btn btn-primary">Add New Flight</a>
-</div>
-
-<div class="row gy-3">
   {#if flights.length === 0}
-    <p class="text-muted">Noch keine Flüge vorhanden.</p>
+    <div class="alert alert-secondary">
+      <i class="bi bi-exclamation-circle me-2"></i>
+      No flights available.
+    </div>
   {:else}
-    {#each flights as flight}
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{flight.flightNumber}</h5>
-            <p class="card-text mb-1">
-              {flight.origin} → {flight.destination}
-            </p>
-            <p class="card-text mb-1">
-              Gate: {flight.gateId ?? "unassigned"}
-            </p>
-            <p class="card-text mb-3">
-              Status: {flight.status}
-            </p>
-            <a
-              href={`/flights/${flight._id}`}
-              class="mt-auto btn btn-sm btn-outline-primary"
-            >
-              Details
-            </a>
+    <div class="row g-4">
+      {#each flights as flight}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card h-100 shadow-sm hover-scale d-flex flex-column">
+            
+            <div class="card-body d-flex flex-column">
+              <!-- Route -->
+              <h5 class="card-title">
+                <i class="bi bi-arrow-right-short me-1"></i>
+                {flight.origin} → {flight.destination}
+              </h5>
+
+              <!-- Gate -->
+              <p class="mb-2">
+                <strong>Gate:</strong> {flight.gateNumber}
+              </p>
+
+              <!-- Status Badge -->
+              <p class="mb-3">
+                <span class={`badge ${statusBadgeCls(flight.status)}`}>
+                  {flight.status}
+                </span>
+              </p>
+
+              <!-- Details-Button -->
+              <a
+                href={`/flights/${flight._id}`}
+                class="mt-auto btn btn-outline-primary w-100"
+              >
+                Details
+              </a>
+            </div>
+
           </div>
         </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
   {/if}
 </div>
