@@ -35,6 +35,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/airlines">Airlines</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/passengers">Passengers</a>
+        </li>
       </ul>
     </div>
   </div>

@@ -158,3 +158,56 @@ export async function getAirline(code) {
   return airline && { ...airline, _id: airline._id.toString() };
 }
 
+
+//////////////////////////////////////////
+// Passengers
+//////////////////////////////////////////
+
+/**
+ * Gibt alle Passagiere zurück, die einem bestimmten Flug zugeordnet sind (M:N).
+ * @param {number} flightNumber
+ */
+export async function getPassengersByFlightNumber(flightNumber) {
+  const collection = db.collection("passengers");
+  const passengers = await collection.find({ flight_numbers: flightNumber }).toArray();
+  return passengers.map(p => ({ ...p, _id: p._id.toString() }));
+}
+
+/**
+ * Gibt alle Passagiere zurück (z.B. für globale /passengers-Seite).
+ */
+export async function getAllPassengers() {
+  const collection = db.collection("passengers");
+  const passengers = await collection.find({}).toArray();
+  return passengers.map(p => ({ ...p, _id: p._id.toString() }));
+}
+
+/**
+ * Gibt einen Passagier anhand seiner ID zurück.
+ * @param {string} id
+ */
+export async function getPassenger(id) {
+  const collection = db.collection("passengers");
+  const passenger = await collection.findOne({ _id: new ObjectId(id) });
+  return passenger && { ...passenger, _id: passenger._id.toString() };
+}
+
+/**
+ * Fügt einen neuen Passagier ein.
+ */
+export async function insertPassenger(data) {
+  const collection = db.collection("passengers");
+  const result = await collection.insertOne(data);
+  return result.insertedId.toString();
+}
+
+/**
+ * Löscht einen Passagier.
+ */
+export async function deletePassenger(id) {
+  const collection = db.collection("passengers");
+  const result = await collection.deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount > 0;
+}
+
+

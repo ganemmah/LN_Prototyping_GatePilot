@@ -6,15 +6,24 @@
   // Status-Badge-Klassen
   function statusBadgeCls(status) {
     switch (status) {
-      case 'Gate Open':     return 'bg-secondary text-light';
-      case 'Boarding':      return 'bg-primary';
-      case 'Final Call':    return 'bg-danger text-light blink';
-      case 'Gate Closed':   return 'bg-dark text-light';
-      case 'Departed':      return 'bg-info text-dark';
-      case 'Taxiing to Runway': return 'bg-warning text-dark';
-      case 'En Route':      return 'bg-warning text-dark';
-      case 'Landed':       return 'bg-success';
-      default:              return 'bg-light text-dark';
+      case "Gate Open":
+        return "bg-secondary text-light";
+      case "Boarding":
+        return "bg-primary";
+      case "Final Call":
+        return "bg-danger text-light blink";
+      case "Gate Closed":
+        return "bg-dark text-light";
+      case "Departed":
+        return "bg-info text-dark";
+      case "Taxiing to Runway":
+        return "bg-warning text-dark";
+      case "En Route":
+        return "bg-warning text-dark";
+      case "Landed":
+        return "bg-success";
+      default:
+        return "bg-light text-dark";
     }
   }
 </script>
@@ -36,7 +45,6 @@
       {#each flights as flight}
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 shadow-sm hover-scale d-flex flex-column">
-            
             <div class="card-body d-flex flex-column">
               <!-- Route -->
               <h5 class="card-title">
@@ -46,7 +54,8 @@
 
               <!-- Gate -->
               <p class="mb-2">
-                <strong>Gate:</strong> {flight.gateNumber}
+                <strong>Gate:</strong>
+                {flight.gateNumber}
               </p>
 
               <!-- Status Badge -->
@@ -64,7 +73,12 @@
                 Details
               </a>
             </div>
-
+            <a
+              href={`flights/${flight._id}/passengers`}
+              class="mt-auto btn btn-outline-primary w-100"
+            >
+              Passenger List
+            </a>
           </div>
         </div>
       {/each}
