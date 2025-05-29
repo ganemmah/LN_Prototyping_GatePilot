@@ -6,13 +6,15 @@
   // Badge-Klasse je nach Status
   function statusBadgeCls(status) {
     switch (status) {
-      case 'Scheduled': return 'bg-info text-dark';
-      case 'Boarding':  return 'bg-primary';
-      case 'En Route':  return 'bg-warning text-dark';
-      case 'Landed':    return 'bg-success';
-      case 'Delayed':   return 'bg-danger';
-      case 'Cancelled': return 'bg-secondary';
-      default:          return 'bg-light text-dark';
+      case 'Gate Open':     return 'bg-secondary text-light';
+      case 'Boarding':      return 'bg-primary';
+      case 'Final Call':    return 'bg-danger text-light blink';
+      case 'Gate Closed':   return 'bg-dark text-light';
+      case 'Departed':      return 'bg-info text-dark';
+      case 'Taxiing to Runway': return 'bg-warning text-dark';
+      case 'En Route':      return 'bg-warning text-dark';
+      case 'Landed':       return 'bg-success';
+      default:              return 'bg-light text-dark';
     }
   }
 </script>
