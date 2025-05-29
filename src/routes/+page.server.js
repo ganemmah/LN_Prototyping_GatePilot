@@ -1,16 +1,31 @@
-// src/routes/+page.server.js
-import { getFlights } from '$lib/db.js';
+import { getFlights, getAllPassengers } from '$lib/db.js';
 
 export async function load() {
-  const all = await getFlights();
-  // nur gelandene Flüge, absteigend sortiert, Top 5
-  const recent = all
+  const allFlights = await getFlights();
+  const allPassengers = await getAllPassengers();
+
+  // Letzte gelandete Flüge (max 5)
+  const recent = allFlights
     .filter(f => f.status === 'Landed')
-    .sort((a,b) => new Date(b.scheduled_arrival) - new Date(a.scheduled_arrival))
-    .slice(0,5);
+    .sort((a, b) => new Date(b.scheduled_arrival) - new Date(a.scheduled_arrival))
+    .slice(0, 5);
 
-    // NEU: alle Boarding‐Flüge
-  const boarding = all.filter(f => f.status === 'Boarding');
+  // Boarding-Flüge
+  const boarding = allFlights.filter(f => f.status === 'Boarding');
 
-  return { recent, boarding };
+  // Final Call Flüge
+  const finalCallFlights = allFlights.filter(f => f.status === 'Final Call');
+  const finalCallFlightNumbers = finalCallFlights.map(f => f.flight_number);
+
+  // Alle Passagiere, die auf Final Call-Flügen sind
+  const finalCallPassengers = allPassengers.filter(p =>
+    p.flight_numbers.some(fn => finalCallFlightNumbers.includes(fn))
+  );
+
+  return {
+    recent,
+    boarding,
+    finalCallPassengers,
+    finalCallFlights
+  };
 }

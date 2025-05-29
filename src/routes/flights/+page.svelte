@@ -70,15 +70,16 @@
                 href={`/flights/${flight._id}`}
                 class="mt-auto btn btn-outline-primary w-100"
               >
-                Details
+                Details of the Flight
               </a>
-            </div>
-            <a
+              <a
               href={`flights/${flight._id}/passengers`}
               class="mt-auto btn btn-outline-primary w-100"
             >
               Passenger List
             </a>
+            </div>
+            
           </div>
         </div>
       {/each}

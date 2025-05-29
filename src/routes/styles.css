@@ -39,3 +39,15 @@ body {
   0%   { transform: translateY(0); }
   100% { transform: translateY(-50%); /* etwa die Hälfte der Listenlänge */ }
 }
+
+.nav-link.active {
+  font-weight: bold;
+  color: #ffc107 !important; /* e.g., yellow */
+}
+
+.navbar-brand.active-home {
+  color: #ffc107 !important; /* Bootstrap yellow */
+  font-weight: bold;
+}
+
+

@@ -1,7 +1,10 @@
 <script>
+  import { page } from '$app/stores';
+  import { get } from 'svelte/store';
   import "./styles.css";
   let { children } = $props();
 </script>
+
 
 <nav
   class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
@@ -10,8 +13,13 @@
 >
   <div class="container-fluid">
     <!-- Brand / Home -->
-    <a class="navbar-brand" href="/">GatePilot</a>
-    <!-- Mobile Toggler -->
+<a
+  class="navbar-brand"
+  class:active-home={$page.url.pathname === '/'}
+  href="/"
+>
+  GatePilot
+</a>    <!-- Mobile Toggler -->
     <button
       class="navbar-toggler"
       type="button"
@@ -27,17 +35,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/flights">Flights</a>
+<a class="nav-link" class:active={$page.url.pathname.startsWith('/flights')} href="/flights">Flights</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/gates">Gates</a>
+<a class="nav-link" class:active={$page.url.pathname.startsWith('/gates')} href="/gates">Gates</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/airlines">Airlines</a>
+<a class="nav-link" class:active={$page.url.pathname.startsWith('/airlines')} href="/airlines">Airlines</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/passengers">Passengers</a>
-        </li>
+<a class="nav-link" class:active={$page.url.pathname.startsWith('/passengers')} href="/passengers">Passengers</a>
       </ul>
     </div>
   </div>
