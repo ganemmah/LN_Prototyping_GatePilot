@@ -1,10 +1,13 @@
 <script>
-  export let data;
-  const { airline, flights } = data;
+  // Hole 'data' aus den übergebenen Props
+  let { data } = $props();
+
+  // Destrukturiere 'airline' und 'flights' aus dem 'data'-Objekt.
+  // Diese sind automatisch reaktiv, wenn sich 'data' ändert.
+  let { airline, flights } = data;
 </script>
 
 <div class="container my-5">
-  <!-- Header Card -->
   <div class="card shadow-lg mb-5">
     <div class="row g-0 align-items-center">
       <div class="col-md-2 text-center p-4">
@@ -24,7 +27,6 @@
     </div>
   </div>
 
-  <!-- Flights-Tabelle -->
   <h3 class="mb-3">Flüge von {airline.name}</h3>
   {#if flights.length === 0}
     <div class="alert alert-secondary">Keine Flüge gefunden.</div>

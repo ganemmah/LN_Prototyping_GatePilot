@@ -1,7 +1,8 @@
 <script>
   import { onMount } from 'svelte';
+  
 
-  export let data;
+  const { data } = $props();
   const recent = data.recent ?? [];
   const boarding = data.boarding ?? [];
   const finalCallPassengers = data.finalCallPassengers ?? [];
@@ -14,7 +15,7 @@
     }
     return chunks;
   }
-  const slides = chunk(recent, 3);
+  const slides = chunk(recent, 2);
 
   let now = new Date();
   let scrollFinalCall;
@@ -27,12 +28,14 @@
 
     const scrollInterval1 = setInterval(() => {
       if (scrollFinalCall) {
+        // @ts-ignore
         scrollFinalCall.scrollTop += 1;
       }
     }, 60);
 
     const scrollInterval2 = setInterval(() => {
       if (scrollBoarding) {
+        // @ts-ignore
         scrollBoarding.scrollTop += 1;
       }
     }, 60);
@@ -98,79 +101,79 @@
         <div class="card-body d-flex flex-column justify-content-center">
           <i class="bi bi-clock-history display-4 text-warning mb-3"></i>
           <h5 class="card-title">Live-Updates</h5>
-          <p class="card-text">Stay updated about the Departing and Arriving</p>
+          <p class="card-text">Stay updated about the Departing and</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row g-4 mb-5">
-  <div class="col-lg-6">
-    <div class="card bg-dark text-light shadow-lg animate__animated animate__fadeIn h-100" style="border-radius: .5rem;">
-      <div class="card-header bg-danger text-white fw-bold d-flex align-items-center p-3 animate__animated animate__flash animate__infinite">
-        <i class="bi bi-megaphone-fill me-2"></i>
-        Final Call – Please proceed to the gate immediately!
-      </div>
-      <div bind:this={scrollFinalCall} style="max-height: 360px; overflow-y: auto;">
-        {#if finalCallRows.length > 0}
-          <ul class="list-group list-group-flush">
-            {#each finalCallRows as p}
-              <li class="list-group-item py-2 px-3 d-flex justify-content-between align-items-center">
-                <div>
-                  <strong class="fw-semibold">{p.first_name} {p.last_name}</strong>
-                  <div class="text-muted small">Passport Number: {p.passport_number}</div>
-                </div>
-                <div class="text-end">
-                  {#each p.flights as f}
-                    <div class="mb-1">
-                      <span class="badge bg-dark rounded-pill">Flight: {f.flight_number}</span>
-                      <span class="badge bg-secondary ms-1 rounded-pill">Gate {f.gate_number}</span>
-                      {#if timeUntil(f.scheduled_departure) < 10}
-                        <span class="badge bg-danger ms-1 rounded-pill">{timeUntil(f.scheduled_departure)} Min</span>
-                      {:else}
-                        <span class="badge bg-info text-dark ms-1 rounded-pill">{timeUntil(f.scheduled_departure)} Min</span>
-                      {/if}
-                    </div>
-                  {/each}
-                </div>
-              </li>
-            {/each}
-          </ul>
-        {:else}
-          <div class="text-center text-muted p-4">
-            <i class="bi bi-info-circle me-2"></i>No passengers currently at final call.
-          </div>
-        {/if}
+    <div class="col-lg-6">
+      <div class="card bg-dark text-light shadow-lg animate__animated animate__fadeIn h-100" style="border-radius: .5rem;">
+        <div class="card-header bg-danger text-white fw-bold d-flex align-items-center p-3 animate__animated animate__flash animate__infinite">
+          <i class="bi bi-megaphone-fill me-2"></i>
+          Final Call – Please proceed to the gate immediately!
+        </div>
+        <div bind:this={scrollFinalCall} style="max-height: 360px; overflow-y: auto;">
+          {#if finalCallRows.length > 0}
+            <ul class="list-group list-group-flush">
+              {#each finalCallRows as p}
+                <li class="list-group-item py-2 px-3 d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong class="fw-semibold">{p.first_name} {p.last_name}</strong>
+                    <div class="text-muted small">Passport Number: {p.passport_number}</div>
+                  </div>
+                  <div class="text-end">
+                    {#each p.flights as f}
+                      <div class="mb-1">
+                        <span class="badge bg-dark rounded-pill">Flight: {f.flight_number}</span>
+                        <span class="badge bg-secondary ms-1 rounded-pill">Gate {f.gate_number}</span>
+                        {#if timeUntil(f.scheduled_departure) < 10}
+                          <span class="badge bg-danger ms-1 rounded-pill">{timeUntil(f.scheduled_departure)} Min</span>
+                        {:else}
+                          <span class="badge bg-info text-dark ms-1 rounded-pill">{timeUntil(f.scheduled_departure)} Min</span>
+                        {/if}
+                      </div>
+                    {/each}
+                  </div>
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <div class="text-center text-muted p-4">
+              <i class="bi bi-info-circle me-2"></i>No passengers currently at final call.
+            </div>
+          {/if}
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-lg-6">
-    {#if boarding.length > 0}
-      <div class="card bg-dark text-light shadow-lg h-100" style="border-radius: .5rem;">
-        <div class="card-header bg-gradient-dark text-light border-0 d-flex align-items-center p-3">
-          <i class="bi bi-exclamation-triangle-fill text-warning fs-2 me-3 blink"></i>
-          <h5 class="mb-0 fw-bold">Now Boarding</h5>
+    <div class="col-lg-6">
+      {#if boarding.length > 0}
+        <div class="card bg-dark text-light shadow-lg h-100" style="border-radius: .5rem;">
+          <div class="card-header bg-gradient-dark text-light border-0 d-flex align-items-center p-3">
+            <i class="bi bi-exclamation-triangle-fill text-warning fs-2 me-3 blink"></i>
+            <h5 class="mb-0 fw-bold">Now Boarding</h5>
+          </div>
+          <div bind:this={scrollBoarding} style="max-height: 360px; overflow-y: auto;">
+            <ul class="mb-0 list-group list-group-flush">
+              {#each boarding as f}
+                <li class="list-group-item bg-dark text-light px-4 py-2 d-flex justify-content-between align-items-center border-bottom">
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold">{f.flight_number}</span>
+                    <small class="text-light-50">{f.origin}</small>
+                  </div>
+                  <span class="badge bg-warning text-dark py-1 px-2 rounded-pill">
+                    Gate {f.gate_number}
+                  </span>
+                </li>
+              {/each}
+            </ul>
+          </div>
         </div>
-        <div bind:this={scrollBoarding} style="max-height: 360px; overflow-y: auto;">
-          <ul class="mb-0 list-group list-group-flush">
-            {#each boarding as f}
-              <li class="list-group-item bg-dark text-light px-4 py-2 d-flex justify-content-between align-items-center border-bottom">
-                <div class="d-flex flex-column">
-                  <span class="fw-semibold">{f.flight_number}</span>
-                  <small class="text-light-50">{f.origin}</small>
-                </div>
-                <span class="badge bg-warning text-dark py-1 px-2 rounded-pill">
-                  Gate {f.gate_number}
-                </span>
-              </li>
-            {/each}
-          </ul>
-        </div>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
-</div>
 
   <!-- Recent Arrivals -->
   <h2 class="mb-4 text-white">Letzte Ankünfte</h2>
@@ -185,15 +188,11 @@
       <div class="carousel-inner">
         {#each slides as group, idx}
           <div class="carousel-item {idx === 0 ? 'active' : ''}">
-            <div
-              class="d-flex justify-content-center align-items-stretch gap-4 px-3"
-            >
+            <div class="d-flex justify-content-center align-items-stretch gap-4 px-3">
               {#each group as f}
                 <div class="card shadow-sm hover-scale" style="width: 300px;">
                   <div class="card-body text-center py-4">
-                    <h5 class="card-title">
-                      {f.flight_number} – {f.airline_code}
-                    </h5>
+                    <h5 class="card-title">{f.flight_number} – {f.airline_code}</h5>
                     <p class="mb-1">{f.scheduled_arrival}</p>
                     <p class="mb-2"><strong>Gate:</strong> {f.gate_number}</p>
                     <p class="mb-2"><strong>Origin:</strong> {f.origin}</p>
@@ -209,16 +208,18 @@
           type="button"
           data-bs-target="#recentCarousel"
           data-bs-slide="prev"
+          aria-label="Previous slide"
         >
-          <span class="carousel-control-prev-icon"></span>
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         </button>
         <button
           class="carousel-control-next"
           type="button"
           data-bs-target="#recentCarousel"
           data-bs-slide="next"
+          aria-label="Next slide"
         >
-          <span class="carousel-control-next-icon"></span>
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
       </div>
     </div>

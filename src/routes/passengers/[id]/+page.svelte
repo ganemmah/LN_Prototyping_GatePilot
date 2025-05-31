@@ -1,6 +1,10 @@
 <script>
-  export let data;
-  const { passenger, flightMap } = data;
+  // Hole 'data' aus den übergebenen Props
+  let { data } = $props();
+
+  // Destrukturiere 'passenger' und 'flightMap' aus dem 'data'-Objekt
+  // Diese sind automatisch reaktiv, wenn sich 'data' ändert.
+  let { passenger, flightMap } = data;
 </script>
 
 <h2 class="mb-4">Passenger Details</h2>

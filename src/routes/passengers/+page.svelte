@@ -1,20 +1,27 @@
 <script>
-  export let data;
-  const { passengers, flightMap } = data;
+  // Hole 'data' aus den übergebenen Props
+  let { data } = $props();
 
-  let query = "";
-  let showCheckedInOnly = false;
+  // Destrukturiere 'passengers' und 'flightMap' aus dem 'data'-Objekt
+  let { passengers, flightMap } = data;
 
-  // Dynamischer Filter nach Suchbegriff und Check-In-Status
-  $: filtered = passengers.filter((p) => {
-    const name = `${p.first_name} ${p.last_name}`.toLowerCase();
-    const flights = p.flight_numbers.map((n) => String(n)).join(", ");
-    const matchesQuery =
-      name.includes(query.toLowerCase()) || flights.includes(query);
-    const matchesCheckIn = !showCheckedInOnly || p.checked_in;
-    return matchesQuery && matchesCheckIn;
-  });
+  // Zustandsvariablen als Runes deklarieren
+  let query = $state("");
+  let showCheckedInOnly = $state(false);
 
+  // Dynamischer Filter als $derived-Rune
+  let filtered = $derived(
+    passengers.filter((p) => {
+      const name = `${p.first_name} ${p.last_name}`.toLowerCase();
+      const flights = p.flight_numbers.map((n) => String(n)).join(", ");
+      const matchesQuery =
+        name.includes(query.toLowerCase()) || flights.includes(query);
+      const matchesCheckIn = !showCheckedInOnly || p.checked_in;
+      return matchesQuery && matchesCheckIn;
+    })
+  );
+
+  // Funktion zum Exportieren als CSV
   function exportToCSV() {
     const headers = [
       "First Name",
@@ -69,13 +76,12 @@
     </div>
   </div>
   <div class="col-md-3 text-end">
-    <button class="btn btn-outline-secondary" on:click={exportToCSV}>
+    <button class="btn btn-outline-secondary" onclick={exportToCSV}>
       Export as CSV
     </button>
   </div>
 </div>
 <a class="btn btn-primary mb-3" href="/passengers/create">+ Insert New Passenger</a>
-
 
 {#if filtered.length === 0}
   <div class="alert alert-warning">Keine passenden Passagiere gefunden.</div>

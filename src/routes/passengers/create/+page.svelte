@@ -1,29 +1,40 @@
 <script>
-  export let form;
+  // Hole 'form' aus den übergebenen Props
+  let { form } = $props();
 
-  let first_name = form?.values?.first_name ?? '';
-  let last_name = form?.values?.last_name ?? '';
-  let passport_number = form?.values?.passport_number ?? '';
-  let seat = form?.values?.seat ?? '';
-  let flight_number = form?.values?.flight_number ?? '';
-  let checked_in = form?.values?.checked_in ?? false;
-  let photo_url = form?.values?.photo_url ?? '';
+  // Zustandsvariablen für die Formularfelder mit initialen Werten aus `form`
+  let first_name = $state(form?.values?.first_name ?? '');
+  let last_name = $state(form?.values?.last_name ?? '');
+  let passport_number = $state(form?.values?.passport_number ?? '');
+  let seat = $state(form?.values?.seat ?? '');
+  let flight_number = $state(form?.values?.flight_number ?? '');
+  let checked_in = $state(form?.values?.checked_in ?? false);
+  let photo_url = $state(form?.values?.photo_url ?? '');
 
-  let submitted = false;
-  let newPassengerId = null;
+  // Zustandsvariablen für den Status der Formularübermittlung
+  let submitted = $state(false);
+  let newPassengerId = $state(null);
 
-  // Reset form on successful creation
-  $: if (form?.status === 'success' && !submitted) {
-    first_name = '';
-    last_name = '';
-    passport_number = '';
-    seat = '';
-    flight_number = '';
-    checked_in = false;
-    photo_url = '';
-    submitted = true;
-    newPassengerId = form.newId;
-  }
+  // Beobachte Änderungen an `form` und reagiere, wenn der Status 'success' ist
+  $effect(() => {
+    if (form?.status === 'success' && !submitted) {
+      // Formularfelder zurücksetzen
+      first_name = '';
+      last_name = '';
+      passport_number = '';
+      seat = '';
+      flight_number = '';
+      checked_in = false;
+      photo_url = '';
+      submitted = true; // Markiere, dass es zurückgesetzt wurde
+      newPassengerId = form.newId;
+    } else if (form?.status !== 'success') {
+      // Wenn der Formularstatus nicht 'success' ist (z.B. Fehler oder initial),
+      // setze 'submitted' und newPassengerId zurück, damit ein erneuter Erfolg wieder registriert wird.
+      submitted = false;
+      newPassengerId = null;
+    }
+  });
 </script>
 
 <h2>Create new Passenger</h2>

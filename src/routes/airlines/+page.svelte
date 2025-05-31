@@ -1,6 +1,12 @@
 <script>
-  export let data;
-  const { airlines } = data;
+  // Der 'data'-Rune empfängt Props.
+  // Hole zuerst 'data' aus den übergebenen Props.
+  let { data } = $props();
+
+  // Dann destrukturiere 'airlines' aus dem 'data'-Objekt.
+  // Dies stellt sicher, dass 'airlines' reaktiv bleibt,
+  // falls sich die übergeordneten Daten ändern.
+  let { airlines } = data;
 </script>
 
 <div class="container my-5">
@@ -13,7 +19,6 @@
       {#each airlines as a}
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 shadow-sm hover-scale d-flex flex-column">
-            <!-- Logo oben -->
             <img
               src={a.logo_url}
               alt="{a.name} Logo"
@@ -25,8 +30,8 @@
               <p class="card-text text-muted">{a.country}</p>
             </div>
             <div class="card-footer bg-transparent mt-auto">
-              <a 
-                href={`/airlines/${a.airline_code}`} 
+              <a
+                href={`/airlines/${a.airline_code}`}
                 class="btn btn-outline-primary w-100"
               >
                 Details
