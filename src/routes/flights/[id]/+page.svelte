@@ -1,9 +1,14 @@
 <!-- src/routes/flights/[id]/+page.svelte -->
 <script>
-  export let data;
-  const { flight } = data;
+  // Daten aus load() werden als Props empfangen
+  let { data } = $props();
 
-  // Badge-Klasse je nach Status
+  // Destrukturiere das 'flight'-Objekt aus den empfangenen Daten.
+  // Das 'flight'-Objekt ist automatisch reaktiv, falls sich die übergeordneten Daten ändern.
+  let { flight } = data;
+
+  // Die Funktion zum Bestimmen der Status-Badge-Klasse bleibt unverändert,
+  // da sie keine Svelte-Reaktivität benötigt.
   function statusBadgeCls(status) {
     switch (status) {
       case 'Gate Open':     return 'bg-secondary text-light';
@@ -21,13 +26,11 @@
 
 <div class="container my-5">
   <div class="card shadow-lg">
-    <!-- Header -->
     <div class="card-header bg-dark text-white d-flex align-items-center">
       <i class="bi bi-geo-alt-fill me-2 display-6"></i>
       <h2 class="mb-0">Flight {flight.flight_number}</h2>
     </div>
 
-    <!-- Body -->
     <div class="card-body">
       <div class="row gy-3">
         <div class="col-sm-6">
@@ -63,7 +66,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <div class="card-footer bg-light d-flex justify-content-end">
       <a href="/flights" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left-circle me-1"></i>

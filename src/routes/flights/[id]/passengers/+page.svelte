@@ -1,6 +1,10 @@
 <script>
-  export let data;
-  const { passengers, flightNumber } = data;
+  // Daten aus load() werden als Props empfangen
+  let { data } = $props();
+
+  // Destrukturiere 'passengers' und 'flightNumber' aus den empfangenen Daten.
+  // Diese sind automatisch reaktiv, falls sich die übergeordneten Daten ändern.
+  let { passengers, flightNumber } = data;
 </script>
 
 <h2>Passengers in Flight {flightNumber}</h2>
@@ -8,7 +12,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Foto</th>
+      <th>Photo</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Seat</th>

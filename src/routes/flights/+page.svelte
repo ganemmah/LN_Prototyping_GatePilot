@@ -1,9 +1,12 @@
 <script>
-  // Daten aus load()
-  export let data;
-  const { flights } = data;
+  // Hole 'data' aus den übergebenen Props
+  let { data } = $props();
 
-  // Status-Badge-Klassen
+  // Destrukturiere 'flights' aus dem 'data'-Objekt.
+  // 'flights' ist automatisch reaktiv, wenn sich 'data' ändert.
+  let { flights } = data;
+
+  // Status-Badge-Klassen als normale Funktion beibehalten
   function statusBadgeCls(status) {
     switch (status) {
       case "Gate Open":
@@ -29,7 +32,6 @@
 </script>
 
 <div class="container my-5">
-  <!-- Header und Add-Button -->
   <div class="d-flex align-items-center mb-4">
     <h1 class="me-auto text-white">Flights</h1>
     <a href="/flights/new" class="btn btn-lg btn-primary">Add New Flight</a>
@@ -46,26 +48,22 @@
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 shadow-sm hover-scale d-flex flex-column">
             <div class="card-body d-flex flex-column">
-              <!-- Route -->
               <h5 class="card-title">
                 <i class="bi bi-arrow-right-short me-1"></i>
                 {flight.origin} → {flight.destination}
               </h5>
 
-              <!-- Gate -->
               <p class="mb-2">
                 <strong>Gate:</strong>
                 {flight.gateNumber}
               </p>
 
-              <!-- Status Badge -->
               <p class="mb-3">
                 <span class={`badge ${statusBadgeCls(flight.status)}`}>
                   {flight.status}
                 </span>
               </p>
 
-              <!-- Details-Button -->
               <a
                 href={`/flights/${flight._id}`}
                 class="mt-auto btn btn-outline-primary w-100"
@@ -73,13 +71,12 @@
                 Details of the Flight
               </a>
               <a
-              href={`flights/${flight._id}/passengers`}
-              class="mt-auto btn btn-outline-primary w-100"
-            >
-              Passenger List
-            </a>
+                href={`flights/${flight._id}/passengers`}
+                class="mt-auto btn btn-outline-primary w-100"
+              >
+                Passenger List
+              </a>
             </div>
-            
           </div>
         </div>
       {/each}

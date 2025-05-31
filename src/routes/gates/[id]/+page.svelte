@@ -1,15 +1,18 @@
 <script>
-  export let data;
-  const { gate, flights } = data;
+  // Daten aus load() werden als Props empfangen
+  let { data } = $props();
 
-  // Zeit im HH:MM-Format
+  // Destrukturiere 'gate' und 'flights' aus den empfangenen Daten.
+  // Diese sind automatisch reaktiv, falls sich die übergeordneten Daten ändern.
+  let { gate, flights } = data;
+
+  // Zeitformatierungsfunktion bleibt unverändert, da sie keine Svelte-Reaktivität benötigt.
   const fmt = d =>
     typeof d === 'string'
       ? d
       : new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 </script>
 
-<!-- Hero-Bar für das Gate -->
 <section class="bg-primary text-white py-4 mb-4">
   <div class="container d-flex align-items-center">
     <i class="bi bi-door-open-fill display-4 me-3"></i>
@@ -22,9 +25,8 @@
 
 <div class="container">
 
-  <!-- Status‐Badge -->
   <div class="mb-4">
-    <span class="badge 
+    <span class="badge
       {gate.status === 'Available' ? 'bg-success' : ''}
       {gate.status === 'Occupied'  ? 'bg-warning text-dark' : ''}
       {gate.status === 'Closed'    ? 'bg-danger' : ''}
@@ -43,7 +45,6 @@
       Keine Flüge für dieses Gate.
     </div>
   {:else}
-    <!-- Table mit Hover-Effekt und Icons -->
     <table class="table table-hover align-middle">
       <thead class="table-dark">
         <tr>

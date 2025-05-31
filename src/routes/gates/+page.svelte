@@ -1,8 +1,11 @@
 <!-- src/routes/gates/+page.svelte -->
 <script>
-  // Daten via load()
-  export let data;
-  const { gates } = data;
+  // Daten via load() werden als Props empfangen
+  let { data } = $props();
+
+  // Destrukturiere 'gates' aus den empfangenen Daten.
+  // 'gates' ist automatisch reaktiv, falls sich die übergeordneten Daten ändern.
+  let { gates } = data;
 </script>
 
 <div class="container my-5">
@@ -17,15 +20,15 @@
       {#each gates as gate}
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 shadow-sm hover-scale d-flex flex-column">
-            
+
             <div class="card-body">
               <h5 class="card-title">Gate {gate.gate_number}</h5>
               <p class="card-text mb-1">
                 <strong>Terminal:</strong> {gate.terminal}
               </p>
               <p class="card-text mb-1">
-                <strong>Status:</strong> 
-                <span class="badge 
+                <strong>Status:</strong>
+                <span class="badge
                   {gate.status === 'Available'    ? 'bg-success' : ''}
                   {gate.status === 'Occupied'     ? 'bg-warning text-dark' : ''}
                   {gate.status === 'Closed'       ? 'bg-danger' : ''}
