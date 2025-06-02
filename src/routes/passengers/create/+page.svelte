@@ -45,40 +45,41 @@
 
 <form method="POST" class="mb-4 needs-validation" novalidate>
   <div class="mb-3">
-    <label class="form-label">First Name *</label>
-    <input class="form-control" name="first_name" bind:value={first_name} required />
+    <label class="form-label" for="first_name_input">First Name *</label>
+    <input id="first_name_input" class="form-control" name="first_name" bind:value={first_name} required />
     {#if form?.errors?.first_name}
       <div class="text-danger small">{form.errors.first_name}</div>
     {/if}
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Last Name *</label>
-    <input class="form-control" name="last_name" bind:value={last_name} required />
+    <label class="form-label" for="last_name_input">Last Name *</label>
+    <input id="last_name_input" class="form-control" name="last_name" bind:value={last_name} required />
     {#if form?.errors?.last_name}
       <div class="text-danger small">{form.errors.last_name}</div>
     {/if}
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Passport Number *</label>
-    <input class="form-control" name="passport_number" bind:value={passport_number} required />
+    <label class="form-label" for="passport_number_input">Passport Number *</label>
+    <input id="passport_number_input" class="form-control" name="passport_number" bind:value={passport_number} required />
     {#if form?.errors?.passport_number}
       <div class="text-danger small">{form.errors.passport_number}</div>
     {/if}
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Seat Number *</label>
-    <input class="form-control" name="seat" bind:value={seat} required />
+    <label class="form-label" for="seat_input">Seat Number *</label>
+    <input id="seat_input" class="form-control" name="seat" bind:value={seat} required />
     {#if form?.errors?.seat}
       <div class="text-danger small">{form.errors.seat}</div>
     {/if}
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Flight Number *</label>
+    <label class="form-label" for="flight_number_input">Flight Number *</label>
     <input
+      id="flight_number_input"
       class="form-control"
       name="flight_number"
       bind:value={flight_number}
@@ -92,13 +93,13 @@
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Picture-URL (optional)</label>
-    <input class="form-control" name="photo_url" bind:value={photo_url} />
+    <label class="form-label" for="photo_url_input">Picture-URL (optional)</label>
+    <input id="photo_url_input" class="form-control" name="photo_url" bind:value={photo_url} />
   </div>
 
   <div class="form-check mb-3">
-    <input class="form-check-input" type="checkbox" name="checked_in" bind:checked={checked_in} />
-    <label class="form-check-label">Checked-In</label>
+    <input id="checked_in_input" class="form-check-input" type="checkbox" name="checked_in" bind:checked={checked_in} />
+    <label class="form-check-label" for="checked_in_input">Checked-In</label>
   </div>
 
   <button type="submit" class="btn btn-primary">Create the new Passenger</button>

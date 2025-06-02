@@ -9,7 +9,6 @@
 <nav
   class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
   data-bs-theme="dark"
-  role="navigation"
 >
   <div class="container-fluid">
     <!-- Brand / Home -->

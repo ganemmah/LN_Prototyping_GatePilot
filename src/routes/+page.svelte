@@ -101,7 +101,7 @@
         <div class="card-body d-flex flex-column justify-content-center">
           <i class="bi bi-clock-history display-4 text-warning mb-3"></i>
           <h5 class="card-title">Live-Updates</h5>
-          <p class="card-text">Stay updated about the Departing and</p>
+          <p class="card-text">Stay updated about the Departing and Arriving flights and also their respective Gates and Passengers</p>
         </div>
       </div>
     </div>

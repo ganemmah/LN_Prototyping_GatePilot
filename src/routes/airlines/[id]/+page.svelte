@@ -21,15 +21,15 @@
       <div class="col-md-10">
         <div class="card-body">
           <h2 class="card-title">{airline.name}</h2>
-          <p class="card-text text-muted">Herkunft: {airline.country}</p>
+          <p class="card-text text-muted">Origin: {airline.country}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <h3 class="mb-3">Flüge von {airline.name}</h3>
+  <h3 class="mb-3">Flights from {airline.name}</h3>
   {#if flights.length === 0}
-    <div class="alert alert-secondary">Keine Flüge gefunden.</div>
+    <div class="alert alert-secondary">No flights found.</div>
   {:else}
     <div class="table-responsive">
       <table class="table table-hover align-middle">
@@ -64,6 +64,6 @@
   {/if}
 
   <a href="/airlines" class="btn btn-secondary mt-4">
-    ← Zurück zur Airlines-Übersicht
+    ← Back to Airlines Overview
   </a>
 </div>
