@@ -1,3 +1,4 @@
+
 <script>
   // Daten aus load() werden als Props empfangen
   let { data } = $props();

@@ -176,7 +176,7 @@
   </div>
 
   <!-- Recent Arrivals -->
-  <h2 class="mb-4 text-white">Letzte Ankünfte</h2>
+  <h2 class="mb-4 text-white">Recent Arrivals</h2>
   {#if slides.length > 0}
     <div
       id="recentCarousel"

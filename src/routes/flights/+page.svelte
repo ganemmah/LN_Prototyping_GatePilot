@@ -34,7 +34,7 @@
 <div class="container my-5">
   <div class="d-flex align-items-center mb-4">
     <h1 class="me-auto text-white">Flights</h1>
-    <a href="/flights/new" class="btn btn-lg btn-primary">Add New Flight</a>
+    
   </div>
 
   {#if flights.length === 0}
