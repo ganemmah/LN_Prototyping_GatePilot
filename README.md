@@ -1,38 +1,42 @@
-# sv
+# 🛫 GatePilot – Flughafenmanagement-System
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**GatePilot** ist eine moderne Webanwendung zur Verwaltung und Visualisierung von Flügen, Passagieren, Gates und Airlines. Die Anwendung wurde mit **SvelteKit (Runes Mode)** entwickelt und nutzt **MongoDB** als Datenbank.
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 📦 Features
+
+- Übersicht und Detailansicht aller Flüge
+- Passagiermanagement mit Check-In-Status
+- Gate-Zuweisung und Statusüberwachung
+- Airlines mit Logo und zugehörigen Flügen
+- Live-Dashboard mit „Now Boarding“ und „Final Call“-Bereichen
+- Vollautomatische Statusaktualisierung der Flüge via Cronjob
+- CSV-Exportfunktion für Passagierlisten
+
+---
+
+## 🚀 Setup (Lokal starten)
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+Zum Starten des Cronjobs für automatische Statusänderung:
 
 ```bash
-npm run build
+npm run cron
 ```
 
-You can preview the production build with `npm run preview`.
+---
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## 🗂️ Projektstruktur
+
+- `/routes`: Seitenstruktur nach URL
+- `/lib/db.js`: Alle MongoDB-Zugriffe zentral
+- `/scripts/update-flight-status.js`: Cronjob zur Statusaktualisierung
+
+---
+
+
